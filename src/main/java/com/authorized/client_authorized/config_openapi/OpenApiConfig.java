@@ -1,7 +1,6 @@
 package com.authorized.client_authorized.config_openapi;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,12 +8,11 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("API Documentation")
-                        .version("1.0")
-                        .description("This is the API documentation for the Client Authorized Application"));
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("user")
+                .pathsToMatch("/api/user/**")  // Ajuste este caminho conforme necessário
+                .pathsToExclude("/error/**")  // Exclui caminhos de erro
+                .build();
     }
-
 }
